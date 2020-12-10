@@ -54,6 +54,8 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         tipo.setSelectedItem(tabela.getValueAt(linha, 1).toString());
         nome.setText(tabela.getValueAt(linha, 2).toString());
         valor.setText(tabela.getValueAt(linha, 3).toString());
+        quantidadeL.setText(tabela.getValueAt(linha, 4).toString());
+        
     }
     
     
@@ -63,10 +65,9 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         }
         codigo.setText("");
         nome.setText("");
-       
         tipo.setSelectedItem("TIPO PRODUTO");
-        
         valor.setText("");
+        quantidadeL.setText("");
         ProdutosSql.listar("");
         ProdutosSql.gerarId();
     }
@@ -100,7 +101,9 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         tipo = new org.bolivia.combo.SComboBoxBlue();
         tipoL = new javax.swing.JLabel();
         valor = new app.bolivia.swing.JCTextField();
-        nomeL1 = new javax.swing.JLabel();
+        nomeL3 = new javax.swing.JLabel();
+        app.bolivia.swing.JCTextField quantidade = new app.bolivia.swing.JCTextField();
+        quantidadeL = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -122,7 +125,6 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "REGISTRO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        codigo.setEditable(false);
         codigo.setBackground(new java.awt.Color(34, 102, 145));
         codigo.setBorder(null);
         codigo.setForeground(new java.awt.Color(255, 255, 255));
@@ -130,10 +132,10 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         codigo.setOpaque(false);
         codigo.setPhColor(new java.awt.Color(255, 255, 255));
         codigo.setPlaceholder("CÓDIGO");
-        jPanel2.add(codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 180, -1));
+        jPanel2.add(codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 140, -1));
 
         codigoL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/codigoL.png"))); // NOI18N
-        jPanel2.add(codigoL, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, -1, 52));
+        jPanel2.add(codigoL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 52));
 
         nome.setBackground(new java.awt.Color(34, 102, 145));
         nome.setBorder(null);
@@ -142,6 +144,11 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         nome.setOpaque(false);
         nome.setPhColor(new java.awt.Color(255, 255, 255));
         nome.setPlaceholder("NOME PRODUTO");
+        nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomeActionPerformed(evt);
+            }
+        });
         nome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 nomeKeyReleased(evt);
@@ -150,10 +157,10 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
                 nomeKeyTyped(evt);
             }
         });
-        jPanel2.add(nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 180, -1));
+        jPanel2.add(nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 130, -1));
 
         nomeL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/nomeL.png"))); // NOI18N
-        jPanel2.add(nomeL, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, 52));
+        jPanel2.add(nomeL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 52));
 
         tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TIPO PRODUTO", "Acessorios Cel", "Eletronicos", "Peliculas", "Celular", " " }));
         tipo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -162,11 +169,11 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
                 tipoKeyReleased(evt);
             }
         });
-        jPanel2.add(tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, 183, -1));
+        jPanel2.add(tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 140, -1));
 
         tipoL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/tipopro.png"))); // NOI18N
         tipoL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(tipoL, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, -1, 52));
+        jPanel2.add(tipoL, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, 50, -1));
 
         valor.setBackground(new java.awt.Color(34, 102, 145));
         valor.setBorder(null);
@@ -175,26 +182,54 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         valor.setOpaque(false);
         valor.setPhColor(new java.awt.Color(255, 255, 255));
         valor.setPlaceholder("PRECO");
+        valor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                valorActionPerformed(evt);
+            }
+        });
         valor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 valorKeyTyped(evt);
             }
         });
-        jPanel2.add(valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, 180, -1));
+        jPanel2.add(valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 100, 30));
 
-        nomeL1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/precoL.png"))); // NOI18N
-        jPanel2.add(nomeL1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, -1, 52));
+        nomeL3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/precoL.png"))); // NOI18N
+        jPanel2.add(nomeL3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 240, 52));
+
+        quantidade.setBackground(new java.awt.Color(34, 102, 145));
+        quantidade.setBorder(null);
+        quantidade.setForeground(new java.awt.Color(255, 255, 255));
+        quantidade.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        quantidade.setOpaque(false);
+        quantidade.setPhColor(new java.awt.Color(255, 255, 255));
+        quantidade.setPlaceholder("QUANTIDADE");
+        quantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quantidadeActionPerformed(evt);
+            }
+        });
+        quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                quantidadeKeyTyped(evt);
+            }
+        });
+        jPanel2.add(quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 160, 30));
+        quantidade.getAccessibleContext().setAccessibleName("");
+
+        quantidadeL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/codigoL.png"))); // NOI18N
+        jPanel2.add(quantidadeL, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, -1, -1));
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CÓDIGO", "TIPO PRODUTO", "NOME DO PRODUTO", "PREÇO"
+                "CÓDIGO", "TIPO PRODUTO", "NOME DO PRODUTO", "PREÇO", "QUANTIDADE"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -523,6 +558,22 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_tipoKeyReleased
 
+    private void valorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_valorActionPerformed
+
+    private void nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomeActionPerformed
+
+    private void quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_quantidadeActionPerformed
+
+    private void quantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quantidadeKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_quantidadeKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atualizar;
@@ -540,7 +591,8 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
     private javax.swing.JButton limpar;
     private app.bolivia.swing.JCTextField nome;
     private javax.swing.JLabel nomeL;
-    private javax.swing.JLabel nomeL1;
+    private javax.swing.JLabel nomeL3;
+    private javax.swing.JLabel quantidadeL;
     private javax.swing.JButton registrar;
     public static javax.swing.JTable tabela;
     private org.bolivia.combo.SComboBoxBlue tipo;

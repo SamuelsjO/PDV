@@ -45,9 +45,5 @@ public class GerarCodigos {
     public String serie()
     {
         return this.num;
-    }
-    
-    
-    
-    
+    }  
 }

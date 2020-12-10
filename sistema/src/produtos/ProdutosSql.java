@@ -43,7 +43,7 @@ public class ProdutosSql {
            
             
         }
-        String dados[] = new String[4];
+        String dados[] = new String[5];
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -52,7 +52,7 @@ public class ProdutosSql {
                 dados[1] = rs.getString("tipo_pro");
                 dados[2] = rs.getString("nome_pro");
                 dados[3] = rs.getString("valor_pro");
-               
+                dados[4] = rs.getString("quanti_pro");
                 modelo.addRow(dados);
             }
         } catch (SQLException ex) {
@@ -72,6 +72,7 @@ public class ProdutosSql {
             ps.setString(2, uc.getTipo());
             ps.setString(3, uc.getNome());
             ps.setString(4, uc.getValor());
+            ps.setString(5, uc.getQuanti_pro());
            
             rsu = ps.executeUpdate();
         } catch (SQLException ex) {
@@ -188,7 +189,7 @@ public class ProdutosSql {
            
             
         }
-        String dados[] = new String[4];
+        String dados[] = new String[5];
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -197,7 +198,7 @@ public class ProdutosSql {
                 dados[1] = rs.getString("tipo_pro");
                 dados[2] = rs.getString("nome_pro");
                 dados[3] = rs.getString("valor_pro");
-               
+                dados[3] = rs.getString("quanti_pro");
                 modelo.addRow(dados);
             }
         } catch (SQLException ex) {

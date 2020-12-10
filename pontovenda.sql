@@ -97,6 +97,9 @@ INSERT INTO `vendas` (`numero_ven`, `total_ven`, `data_ven`) VALUES
 ALTER TABLE `produtos`
   ADD PRIMARY KEY (`codigo_pro`);
 
+
+ALTER TABLE `produtos`
+ADD quanti_pro varchar(255) not null;
 --
 -- Indexes for table `usuarios`
 --

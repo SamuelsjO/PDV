@@ -25,9 +25,7 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
-        initComponents();
-        
-        
+        initComponents();     
     }
     
     
@@ -45,8 +43,8 @@ public class Login extends javax.swing.JFrame {
         
     }
     
-    void setProgress(int percent, String informacao){
-        inicio.getJLabel().setText(informacao);
+    void setProgress(int percent, String information){
+        inicio.getJLabel().setText(information);
         inicio.getJProgressBar().setValue(percent);
         try {
             Thread.sleep(200);
@@ -60,10 +58,10 @@ public class Login extends javax.swing.JFrame {
     Conectar con = new Conectar();
     Connection cn = con.conexao();
     
-    public void Logar(String id, String senha){
+    public void Logar(String name, String senha){
         String dado = null;
         try {
-            String sql = "SELECT nome_us FROM usuarios WHERE nome_us = '" +id+ "' ";
+            String sql = "SELECT nome_us FROM usuarios WHERE nome_us = '" +name+ "' ";
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             
@@ -72,8 +70,7 @@ public class Login extends javax.swing.JFrame {
                 Statement st1 = cn.createStatement();
                 ResultSet rs1 = st1.executeQuery(sql1);
                 if(rs1.first()){
-                    String sql2 = "SELECT tipo_us FROM usuarios WHERE nome_us = '" +id+ "' "
-                            + "and senha = '" +senha+ "' ";
+                    String sql2 = "SELECT tipo_us FROM usuarios WHERE nome_us = '" +name+ "' " + "and senha = '" +senha+ "' ";
                     Statement st2 = cn.createStatement();
                     ResultSet rs2 = st2.executeQuery(sql2);
                     
@@ -83,7 +80,7 @@ public class Login extends javax.swing.JFrame {
                     }
                     
                     if (dado.equals("ADM")){
-                        String sql3 = "SELECT nome_us FROM usuarios WHERE nome_us = '" +id+ "' ";
+                        String sql3 = "SELECT nome_us FROM usuarios WHERE nome_us = '" +name+ "' ";
                         Statement st3 = cn.createStatement();
                         ResultSet rs3 = st3.executeQuery(sql3);
                         
@@ -101,7 +98,7 @@ public class Login extends javax.swing.JFrame {
                           menu.setVisible(true);
                           
                     }else{
-                        String sql4 = "SELECT nome_us FROM usuarios WHERE nome_us = '" +id+ "' ";
+                        String sql4 = "SELECT nome_us FROM usuarios WHERE nome_us = '" +name+ "' ";
                         Statement st4 = cn.createStatement();
                         ResultSet rs4 = st4.executeQuery(sql4);
                         
@@ -191,7 +188,6 @@ public class Login extends javax.swing.JFrame {
         );
 
         painelLogin.add(painelImgCab, java.awt.BorderLayout.PAGE_START);
-        painelImgCab.getAccessibleContext().setAccessibleParent(senha);
 
         painelCentral.setLayout(new java.awt.BorderLayout());
 

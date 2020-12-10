@@ -13,13 +13,15 @@ public class Produtos {
     
     public static String LISTAR = "SELECT * FROM produtos ORDER BY nome_pro";
     
-    public static String REGISTRAR = "INSERT INTO produtos(codigo_pro, tipo_pro, nome_pro, valor_pro) "
-            + "VALUES(?,?,?,?)";
+    public static String REGISTRAR = "INSERT INTO produtos(codigo_pro, tipo_pro, nome_pro, valor_pro, quanti_pro) "
+            + "VALUES(?,?,?,?,?)";
     
     public static String ATUALIZAR = "UPDATE produtos SET "
                 + "tipo_pro=?, "
                 + "nome_pro=?, "
-                + "valor_pro=? WHERE codigo_pro=?";
+                + "valor_pro=? "
+                + "quanti_pro=? "
+                + "WHERE codigo_pro=?";
     
     public static String ELIMINAR = "DELETE FROM produtos WHERE codigo_pro = ?";
     
@@ -29,6 +31,7 @@ public class Produtos {
     private String tipo;
     private String nome;
     private String valor;
+    private String quanti_pro;
 
     public Produtos(){
         
@@ -65,6 +68,13 @@ public class Produtos {
     public void setValor(String valor) {
         this.valor = valor;
     }
+    
+    public String getQuanti_pro() {
+        return quanti_pro;
+    }
 
+    public void setQuanti_pro(String quanti_pro) {
+        this.quanti_pro = quanti_pro;
+    }
     
 }

@@ -131,11 +131,11 @@ public class FrmListaProd extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "CÓDIGO", "TIPO PRODUTO", "NOME PRODUTO", "VALOR"
+                "CÓDIGO", "TIPO PRODUTO", "NOME PRODUTO", "VALOR", "QUANTIDADE"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
